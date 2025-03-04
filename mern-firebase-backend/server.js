@@ -19,11 +19,9 @@ const serviceAccount = JSON.parse(
     fs.readFileSync(process.env.FIREBASE_SERVICE_ACCOUNT_PATH, "utf8")
 );
 
-// Fix line breaks
 serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
     
 
-// API to send notifications
 app.post("/send-notification", async (req, res) => {
     const { token, title, body } = req.body;
 

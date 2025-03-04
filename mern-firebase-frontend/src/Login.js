@@ -5,17 +5,14 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [sendNotification, setSendNotification] = useState(false); // Track notification preference
 
     const handleLogin = async () => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             alert("Login Successful");
-
-            // Get the FCM token from localStorage
             const token = localStorage.getItem("fcm_token");
-
-            if (token) {
-                // Send notification request to backend
+            if (token && sendNotification) {
                 fetch("https://notifications-qrso.onrender.com/send-notification", {
                     method: "POST",
                     headers: {
@@ -41,6 +38,17 @@ function Login() {
             <h2>Login</h2>
             <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+
+            <div>
+                <input
+                    type="checkbox"
+                    id="sendNotification"
+                    checked={sendNotification}
+                    onChange={(e) => setSendNotification(e.target.checked)}
+                />
+                <label htmlFor="sendNotification">Send Login Notification</label>
+            </div>
+
             <button onClick={handleLogin}>Login</button>
         </div>
     );

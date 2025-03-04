@@ -15,7 +15,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const messaging = getMessaging(app);
 
-// Request permission to send notifications
 const requestForToken = async () => {
     try {
         const currentToken = await getToken(messaging, { vapidKey: "BBpgVC8K08fbx916RlSmy33ZrWZgaapmuiimta2k2ki6RMLGk0zUq3ff783YoVhyruliHXRRwRGes-NpBrgatvQ" });
