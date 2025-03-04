@@ -18,7 +18,7 @@ const messaging = getMessaging(app);
 // Request permission to send notifications
 const requestForToken = async () => {
     try {
-        const currentToken = await getToken(messaging, { vapidKey: "YOUR_PUBLIC_VAPID_KEY" });
+        const currentToken = await getToken(messaging, { vapidKey: "BBpgVC8K08fbx916RlSmy33ZrWZgaapmuiimta2k2ki6RMLGk0zUq3ff783YoVhyruliHXRRwRGes-NpBrgatvQ" });
         if (currentToken) {
             console.log("FCM Token:", currentToken);
         } else {

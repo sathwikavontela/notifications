@@ -16,7 +16,7 @@ function Login() {
 
             if (token) {
                 // Send notification request to backend
-                fetch("http://localhost:5000/send-notification", {
+                fetch("https://notifications-qrso.onrender.com/send-notification", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
