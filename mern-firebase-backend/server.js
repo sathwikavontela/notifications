@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import admin from "firebase-admin";
+import fs from "fs";
 
 dotenv.config();
 
@@ -14,13 +15,13 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err));
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+const serviceAccount = JSON.parse(
+    fs.readFileSync(process.env.FIREBASE_SERVICE_ACCOUNT_PATH, "utf8")
+);
 
- 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
+// Fix line breaks
+serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+    
 
 // API to send notifications
 app.post("/send-notification", async (req, res) => {
